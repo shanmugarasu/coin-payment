@@ -491,15 +491,12 @@ public class BitcoinInvoice implements WalletChangeEventListener, TransactionCon
      */
     SendRequest tryFinishInvoice(Wallet wallet) {
         if (transfers.isEmpty()) {
-            logger.debug(String.format("Invoice %s has no transfers.", invoiceId.toString()));
             return null;
         }
         if (!incomingTxList.isOneOrMoreTxPending()) {
-            logger.debug(String.format("Invoice %s has not yet been paid.", invoiceId.toString()));
             return null;
         }
         if (transferTxList.isOneOrMoreTxPending()) {
-            logger.debug(String.format("Invoices %s transfers are already payed.", invoiceId.toString()));
             return null;
         }
 
@@ -518,6 +515,7 @@ public class BitcoinInvoice implements WalletChangeEventListener, TransactionCon
             wallet.completeTx(sr);
             wallet.maybeCommitTx(sr.tx);
             transferTxList.add(sr.tx);
+            logger.debug(String.format("Forwarded transfers for invoice %s.", invoiceId.toString()));
             logger.debug(String.format("Forwarded transfers for invoice %s.", invoiceId.toString()));
         } catch (InsufficientMoneyException e) {
             logger.debug(String.format("%s: too few coins in wallet to fulfill transfer payment", invoiceId.toString()));
