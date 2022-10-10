@@ -22,7 +22,7 @@ On the event push to master branch, the follwoing github actions will be execute
  ```
    View the swagger listing here:
 ```
-http://localhost:8080/v1/swagger.json
+http://localhost:8080/v1/swagger.json - Localhost would public ip address of VM
 ```
 
 5. Making the package to staging folder
